@@ -98,7 +98,7 @@ class BLPInterface:
                 for v in [fld.getElement(i) for i in range(fld.numElements()) if fld.getElement(i).name() != 'date']:
                     df.ix[fld.getElementAsDatetime('date'), str(v.name())] = v.getValue()
 
-            df.index = df.index.to_datetime()
+            df.index = pd.to_datetime(df.index)
             df.replace('#N/A History', np.nan, inplace=True)
             
             keys.append(securityData.getElementAsString('security'))
