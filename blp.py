@@ -96,7 +96,7 @@ class BLPInterface:
             
             for fld in fieldDataList:
                 for v in [fld.getElement(i) for i in range(fld.numElements()) if fld.getElement(i).name() != 'date']:
-                    df.ix[fld.getElementAsDatetime('date'), str(v.name())] = v.getValue()
+                    df.loc[fld.getElementAsDatetime('date'), str(v.name())] = v.getValue()
 
             df.index = pd.to_datetime(df.index)
             df.replace('#N/A History', np.nan, inplace=True)
@@ -134,7 +134,8 @@ class BLPInterface:
                 fieldDataList = [fieldData.getElement(i) for i in range(fieldData.numElements())]
                 
                 for fld in fieldDataList:
-                    data.ix[sec.getElementAsString('security'), str(fld.name())] = fld.getValue()
+                    data.loc[sec.getElementAsString('security'), str(fld.name())] = fld.getValue()
+
         
         if data.empty:
             return data
